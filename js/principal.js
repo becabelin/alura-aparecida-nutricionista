@@ -11,28 +11,31 @@ function calcularImc(pacientes) {
         var tdAltura = paciente.querySelector(".info-altura");
 
         // não deixar calcular o imc se a altura ou peso estiverem vazios
-        if (tdPeso.textContent == "" || tdAltura.textContent == "") {
-            alert("Preencha todos os campos!");
-        } else if (tdPeso.textContent <= 0 || tdPeso.textContent >= 500) {
-                var tdNome = paciente.querySelector(".info-nome");
-                alert("Peso inválido! Paciente: " + tdNome.textContent);
-        } else if (tdAltura.textContent <= 0 || tdAltura.textContent >= 3) {
-                var tdNome = paciente.querySelector(".info-nome");
-                alert("Altura inválida! Paciente: " + tdNome.textContent);
+        if (tdPeso.textContent == "" || tdAltura.textContent == "" || tdPeso.textContent == "" && tdAltura.textContent == "") {
+            paciente.classList.add("paciente-invalido");
+            alert("Preencha todos os campos do " + tdNome.textContent + "!");
+        }
+        if (tdPeso.textContent <= 0 || tdPeso.textContent >= 500) {
+            var tdNome = paciente.querySelector(".info-nome");
+            paciente.classList.add("paciente-invalido");
+            alert("Peso inválido! Paciente: " + tdNome.textContent);
+        }
+        if (tdAltura.textContent <= 0 || tdAltura.textContent >= 3) {
+            var tdNome = paciente.querySelector(".info-nome");
+            paciente.classList.add("paciente-invalido");
+            alert("Altura inválida! Paciente: " + tdNome.textContent);
         } else {
-                var peso = tdPeso.textContent;
-                var altura = tdAltura.textContent;
-                var imc = peso / (altura * altura);
-                var tdImc = paciente.querySelector(".info-imc");
-                tdImc.textContent = imc.toFixed(2);
-                var tdSaudavel = paciente.querySelector(".info-saudavel");
-                var classificacao = classificarImc(imc);
-                tdSaudavel.textContent = classificacao;
+            var peso = tdPeso.textContent;
+            var altura = tdAltura.textContent;
+            var imc = peso / (altura * altura);
+            var tdImc = paciente.querySelector(".info-imc");
+            tdImc.textContent = imc.toFixed(2);
+            var tdSaudavel = paciente.querySelector(".info-saudavel");
+            var classificacao = classificarImc(imc);
+            tdSaudavel.textContent = classificacao;
         }
     });
 }
-
-calcularImc(pacientes);
 
 // calcular se o imc é saudável ou não
 function classificarImc(imc) {
@@ -62,5 +65,5 @@ function mostrarSaudavel(pacientes) {
     });
 }
 
-// exibir classificarImc em info-saudavel
+calcularImc(pacientes);
 mostrarSaudavel(pacientes);
